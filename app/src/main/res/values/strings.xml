@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">TNPC</string>
+    <string name="tpo">TPO</string>
+    <string name="Company">Company</string>
+    <string name="Student">Student</string>
+    <string name="tnpc_coordinators">tnpc Coordinators</string>
+    <string name="form_name">Training and Placement Cell, DBATU</string>
+    <string name="info">Fill in the form for the placement opportunities</string>
+    <string name="spinner_title">Choose</string>
+    <string name="compulsory">* Compulsory</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="first_name">First Name *</string>
+    <string name="middle_name">Middle Name</string>
+    <string name="last_name">Last Name *</string>
+    <string name="gender">Gender *</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="date_of_birth">Date of Birth *</string>
+    <string name="contact_number">Contact Number *</string>
+    <string name="email">email *</string>
+    <string name="address">Address *</string>
+    <string name="your_admission_type">Your Admission type *</string>
+    <string name="first_year_admission">First Year Admission</string>
+    <string name="diploma_admission">Diploma Admission</string>
+    <string name="department">Department *</string>
+    <string name="roll_number">Roll Number *</string>
+    <string name="ssc_percentage">SSC Percentage *</string>
+    <string name="hsc_percentage">HSC Percentage *</string>
+    <string name="diploma_percentage">Diploma Percentage *</string>
+    <string name="_1st_semester_sgpa">1st Semester SGPA *</string>
+    <string name="_2nd_semester_sgpa">2nd Semester SGPA *</string>
+    <string name="_3rd_semester_sgpa">3rd Semester SGPA *</string>
+    <string name="_4th_semester_sgpa">4th Semester SGPA *</string>
+    <string name="_5th_semester_sgpa">5th Semester SGPA *</string>
+    <string name="_6th_semester_sgpa">6th Semester SGPA *</string>
+    <string name="number_of_active_backlogs">Number of active backlogs *</string>
+    <string name="are_you_interested_in_higher_studies">Are you Interested in Higher studies? *</string>
+    <string name="e_g_m_tech_ms_mba_etc">(e.g. M.Tech, MS, MBA, etc)</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="exams">Exams</string>
+    <string name="which_of_the_following_exams_will_you_appear_for">Which of the following exams will you appear for? *</string>
+    <string name="gate">GATE</string>
+    <string name="gre_toefl">GRE, TOEFL</string>
+    <string name="cat_mba_cet">CAT, MBA-CET</string>
+    <string name="other">OTHER</string>
+    <string name="mpsc_upsc">MPSC, UPSC</string>
+    <string name="submit">Submit</string>
+    <string name="specify">Specify *</string>
+    <string name="cmat">CMAT</string>
+    <string name="gmat">GMAT</string>
+    <string name="profile">profile</string>
+    <string name="nextSlide">Next</string>
+    <string-array name="dept_array">
+        <item>--- Select Department ---</item>
+        <item>Chemical</item>
+        <item>Civil</item>
+        <item>Computer</item>
+        <item>Electrical</item>
+        <item>ExTC</item>
+        <item>IT</item>
+        <item>Mechanical</item>
+        <item>Petrochemical</item>
+    </string-array>
+    <string-array name="back_log">
+        <item>number of active backlogs</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>more..</item>
+    </string-array>
+
+    <string name="next1">NEXT</string>
+    <string name="skipIntro">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">News</string>
+    <string name="slide_1_desc">The easiest way get news about the Campus Recruitment</string>
+
+    <string name="slide_2_title">Notify</string>
+    <string name="slide_2_desc">Get Notifications about the workshops and seminars in our University</string>
+
+</resources>

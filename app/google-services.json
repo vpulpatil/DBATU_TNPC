@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "749135410925",
+    "firebase_url": "https://dbatu-tnpc-79d12.firebaseio.com",
+    "project_id": "dbatu-tnpc-79d12",
+    "storage_bucket": "dbatu-tnpc-79d12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749135410925:android:6c86320ab37f0cdc",
+        "android_client_info": {
+          "package_name": "com.dbatu.dbatu_tnpc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "749135410925-bpdbp83hqigdvicmvjasq1ufebp6kpe7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dbatu.dbatu_tnpc",
+            "certificate_hash": "AF8C5BA1A3E3EB96155341791C67E5D200E47051"
+          }
+        },
+        {
+          "client_id": "749135410925-u760lkl0bpsjbl2qitb2a06ltsgvhcia.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATdTorl92AMnJhnuVp04dvqE-MCNvrUT8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "749135410925-u760lkl0bpsjbl2qitb2a06ltsgvhcia.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
