@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TNPC</string>
+    <string name="app_name">TnPC</string>
     <string name="tpo">TPO</string>
     <string name="Company">Company</string>
     <string name="Student">Student</string>
@@ -80,5 +80,7 @@
 
     <string name="slide_2_title">Notify</string>
     <string name="slide_2_desc">Get Notifications about the workshops and seminars in our University</string>
+    <string name="news_feed_logo">News feed logo</string>
+    <string name="notification_logo">Notification Logo</string>
 
 </resources>

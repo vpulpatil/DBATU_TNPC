@@ -8,7 +8,7 @@
     <application
         android:name="com.dbatu.dbatu_tnpc.DBATU_TNPC"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/college_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -21,14 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.dbatu.dbatu_tnpc.RegistrationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:name="com.dbatu.dbatu_tnpc.WelcomeActivity"></activity>
+        <activity android:name=".RegistrationActivity"/>
+        <activity android:name="com.dbatu.dbatu_tnpc.WelcomeActivity"/>
     </application>
 
 </manifest>

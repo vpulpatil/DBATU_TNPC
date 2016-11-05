@@ -145,7 +145,6 @@
                 android:id="@+id/dateofbirth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="   -- / -- / ----   "
                 android:gravity="center_vertical|start"
                 android:drawableEnd="@drawable/ic_insert_invitation_black_24dp"
                 android:onClick="setDate"
@@ -162,7 +161,9 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/contact_number"
                     android:inputType="number"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:maxLength="11"
+                    tools:ignore="Deprecated" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -286,7 +287,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/ssc_percentage"
                     android:inputType="numberDecimal"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:maxLength="5"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -302,7 +304,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/hsc_percentage"
                     android:inputType="numberDecimal"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:maxLength="5"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -318,7 +321,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/diploma_percentage"
                     android:inputType="numberDecimal"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:maxLength="4"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -334,7 +338,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/_1st_semester_sgpa"
                     android:inputType="numberDecimal"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:maxLength="4"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -350,7 +355,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/_2nd_semester_sgpa"
                     android:inputType="numberDecimal"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:maxLength="4"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -365,7 +371,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/_3rd_semester_sgpa"
                     android:inputType="numberDecimal"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:maxLength="4"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -380,7 +387,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/_4th_semester_sgpa"
                     android:inputType="numberDecimal"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:maxLength="4"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -395,7 +403,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/_5th_semester_sgpa"
                     android:inputType="numberDecimal"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:maxLength="4"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -410,7 +419,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/_6th_semester_sgpa"
                     android:inputType="numberDecimal"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:maxLength="4"/>
 
             </android.support.design.widget.TextInputLayout>
 
