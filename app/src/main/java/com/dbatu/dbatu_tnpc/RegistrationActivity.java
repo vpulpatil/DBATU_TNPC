@@ -1,10 +1,10 @@
 package com.dbatu.dbatu_tnpc;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.Activity;
-import android.support.design.widget.TextInputLayout;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,6 +24,9 @@ import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by Keyur on 20-10-2016.
  */
@@ -31,25 +34,114 @@ import java.util.regex.Pattern;
 public class RegistrationActivity extends Activity {
 
     //various fields in registration form
-    private EditText studentFirstName, studentMiddleName, studentLastName, studentContactNumber, studentEmail, studentAddress, studentRollno,
-            studentSSCPercentage, studentHSCPercentage, studentDiplomaPercentage, students_sgpa1, students_sgpa2, students_sgpa3, students_sgpa4, students_sgpa5,
-            students_sgpa6, specifyOtherExam;
-    private RadioButton studentMale, studentFemale, firstYearAdmission, dplomaAdmission, exam_yes, exam_no;
-    private LinearLayout academicDetails, examDetails;
-    private TextView admissionDetails;
-    private TextInputLayout sgpaFirstSem, sgpaSecondSem, hscPercentage, diplomaPercentage, specifyOtherExamDetails;
-    private Button registerStudent;
-    private CheckBox exam_other, exam_gate, exam_gre, exam_cat, exam_gmat, exam_cmat, exam_mpsc_upsc;
-    private Spinner departmentDropdownList, backlogDropdownList;
+
+    @BindView(R.id.studentFirstName)
+    EditText studentFirstName;
+    @BindView(R.id.studentMiddleName)
+    EditText studentMiddleName;
+    @BindView(R.id.studentLastName)
+    EditText studentLastName;
+    @BindView(R.id.studentContactNumber)
+    EditText studentContactNumber;
+    @BindView(R.id.studentEmail)
+    EditText studentEmail;
+    @BindView(R.id.studentAddress)
+    EditText studentAddress;
+    @BindView(R.id.studentRollno)
+    EditText studentRollno;
+    @BindView(R.id.studentSSCPercentage)
+    EditText studentSSCPercentage;
+    @BindView(R.id.studentHSCPercentage)
+    EditText studentHSCPercentage;
+    @BindView(R.id.studentDiplomaPercentage)
+    EditText studentDiplomaPercentage;
+    @BindView(R.id.studentSGPA1)
+    EditText students_sgpa1;
+    @BindView(R.id.studentSGPA2)
+    EditText students_sgpa2;
+    @BindView(R.id.studentSGPA3)
+    EditText students_sgpa3;
+    @BindView(R.id.studentSGPA4)
+    EditText students_sgpa4;
+    @BindView(R.id.studentSGPA5)
+    EditText students_sgpa5;
+    @BindView(R.id.studentSGPA6)
+    EditText students_sgpa6;
+    @BindView(R.id.specifyOtherExamDetails)
+    EditText specifyOtherExam;
+
+    @BindView(R.id.studentMale)
+    RadioButton studentMale;
+    @BindView(R.id.studentFemale)
+    RadioButton studentFemale;
+    @BindView(R.id.radioButtonfy)
+    RadioButton firstYearAdmission;
+    @BindView(R.id.radioButtonda)
+    RadioButton dplomaAdmission;
+    @BindView(R.id.optionYes)
+    RadioButton exam_yes;
+    @BindView(R.id.optionNo)
+    RadioButton exam_no;
+
+    @BindView(R.id.academicDetails)
+    LinearLayout academicDetails;
+    @BindView(R.id.examDetails)
+    LinearLayout examDetails;
+
+    @BindView(R.id.typeOfAdmission)
+    TextView admissionDetails;
+
+    @BindView(R.id.studentSGPA1TextInputLayout)
+    TextInputLayout sgpaFirstSem;
+    @BindView(R.id.studentSGPA2TextInputLayout)
+    TextInputLayout sgpaSecondSem;
+    @BindView(R.id.studentHSCTextInputLayout)
+    TextInputLayout hscPercentage;
+    @BindView(R.id.studentiDplomaTextInputLayout)
+    TextInputLayout diplomaPercentage;
+    @BindView(R.id.specifyOtherExamDetailsTextInputLayout)
+    TextInputLayout specifyOtherExamDetails;
+
+    @BindView(R.id.registerStudent)
+    Button registerStudent;
+
+    @BindView(R.id.exam_otherExams)
+    CheckBox exam_other;
+    @BindView(R.id.exam_gate)
+    CheckBox exam_gate;
+    @BindView(R.id.exam_gre_toefl)
+    CheckBox exam_gre;
+    @BindView(R.id.exam_mba_mbacet)
+    CheckBox exam_cat;
+    @BindView(R.id.exam_gmat)
+    CheckBox exam_gmat;
+    @BindView(R.id.exam_cmat)
+    CheckBox exam_cmat;
+    @BindView(R.id.exam_mpsc_upsc)
+    CheckBox exam_mpsc_upsc;
+
+    @BindView(R.id.studentDepartment)
+    Spinner departmentDropdownList;
+    @BindView(R.id.studentBacklogDropdownList)
+    Spinner backlogDropdownList;
 
     //for date of birth
-    private TextView dateOfBirthView;
+    @BindView(R.id.dateofbirth)
+    TextView dateOfBirthView;
     private int year, month, day;
 
     //Firebase
     private Firebase dbatu_tnpc_firebase_reference;
     private String STUDENT_FIREBASE_URL = "https://dbatu-tnpc-79d12.firebaseio.com/Student";
-
+    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+            //arg1 = day
+            //arg2+1 = month
+            //arg3 = year
+            showDate(arg1, arg2 + 1, arg3);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,63 +158,7 @@ public class RegistrationActivity extends Activity {
     }
 
     private void instantiation() {
-        //EditText Fields
-        studentFirstName = (EditText)findViewById(R.id.studentFirstName);
-        studentMiddleName = (EditText)findViewById(R.id.studentMiddleName);
-        studentLastName = (EditText)findViewById(R.id.studentLastName);
-        studentContactNumber = (EditText)findViewById(R.id.studentContactNumber);
-        studentEmail = (EditText)findViewById(R.id.studentEmail);
-        studentAddress = (EditText)findViewById(R.id.studentAddress);
-        studentRollno = (EditText)findViewById(R.id.studentRollno);
-        studentSSCPercentage = (EditText)findViewById(R.id.studentSSCPercentage);
-        studentHSCPercentage = (EditText)findViewById(R.id.studentHSCPercentage);
-        studentDiplomaPercentage = (EditText)findViewById(R.id.studentDiplomaPercentage);
-        students_sgpa1 = (EditText)findViewById(R.id.studentSGPA1);
-        students_sgpa2 = (EditText)findViewById(R.id.studentSGPA2);
-        students_sgpa3 = (EditText)findViewById(R.id.studentSGPA3);
-        students_sgpa4 = (EditText)findViewById(R.id.studentSGPA4);
-        students_sgpa5 = (EditText)findViewById(R.id.studentSGPA5);
-        students_sgpa6 = (EditText)findViewById(R.id.studentSGPA6);
-        specifyOtherExam = (EditText)findViewById(R.id.specifyOtherExamDetails);
-
-        //TextInputLayout Fields
-        hscPercentage = (TextInputLayout)findViewById(R.id.studentHSCTextInputLayout);
-        diplomaPercentage = (TextInputLayout)findViewById(R.id.studentiDplomaTextInputLayout);
-        sgpaFirstSem = (TextInputLayout)findViewById(R.id.studentSGPA1TextInputLayout);
-        sgpaSecondSem = (TextInputLayout)findViewById(R.id.studentSGPA2TextInputLayout);
-        specifyOtherExamDetails = (TextInputLayout)findViewById(R.id.specifyOtherExamDetailsTextInputLayout);
-
-        //TextView Fields
-        dateOfBirthView = (TextView) findViewById(R.id.dateofbirth);
-        admissionDetails = (TextView)findViewById(R.id.typeOfAdmission);
-
-        //Buttons
-        registerStudent = (Button)findViewById(R.id.registerStudent);
-
-        //Spinners
-        departmentDropdownList = (Spinner)findViewById(R.id.studentDepartment);
-        backlogDropdownList = (Spinner)findViewById(R.id.studentBacklogDropdownList);
-
-        //RadioButtons
-        studentMale = (RadioButton)findViewById(R.id.studentMale);
-        studentFemale = (RadioButton)findViewById(R.id.studentFemale);
-        firstYearAdmission = (RadioButton)findViewById(R.id.radioButtonfy);
-        dplomaAdmission = (RadioButton)findViewById(R.id.radioButtonda);
-        exam_yes = (RadioButton)findViewById(R.id.optionYes);
-        exam_no = (RadioButton)findViewById(R.id.optionNo);
-
-        //Checkbox
-        exam_gate = (CheckBox)findViewById(R.id.exam_gate);
-        exam_gre = (CheckBox)findViewById(R.id.exam_gre_toefl);
-        exam_cat = (CheckBox)findViewById(R.id.exam_mba_mbacet);
-        exam_gmat = (CheckBox)findViewById(R.id.exam_gmat);
-        exam_cmat = (CheckBox)findViewById(R.id.exam_cmat);
-        exam_mpsc_upsc = (CheckBox)findViewById(R.id.exam_mpsc_upsc);
-        exam_other = (CheckBox)findViewById(R.id.exam_otherExams);
-
-        //LinearLayout
-        academicDetails = (LinearLayout)findViewById(R.id.academicDetails);
-        examDetails = (LinearLayout)findViewById(R.id.examDetails);
+        ButterKnife.bind(this);
 
         //Visibility of various fields
         registerStudent.setVisibility(View.GONE);
@@ -150,16 +186,6 @@ public class RegistrationActivity extends Activity {
         }
         return null;
     }
-
-    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-            //arg1 = day
-            //arg2+1 = month
-            //arg3 = year
-            showDate(arg1, arg2+1, arg3);
-        }
-    };
 
     private void showDate(int year, int month, int day) {
         dateOfBirthView.setText(new StringBuilder().append(day).append("/").append(month).append("/").append(year));

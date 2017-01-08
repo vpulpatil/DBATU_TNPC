@@ -18,12 +18,52 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class WelcomeActivity extends AppCompatActivity {
 
-    private ViewPager viewPager;
-    private LinearLayout dotsLayout;
+    @BindView(R.id.view_pager)
+    ViewPager viewPager;
+    @BindView(R.id.layoutDots)
+    LinearLayout dotsLayout;
+
+    @BindView(R.id.skipIntro)
+    Button skipIntro;
+    @BindView(R.id.nextSlide)
+    Button nextSlide;
+
+
     private int[] layouts;
-    private Button skipIntro, nextSlide;
+    //  viewpager change listener
+    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
+
+        @Override
+        public void onPageSelected(int position) {
+            addBottomDots(position);
+
+            // changing the next button text 'NEXT' / 'GOT IT'
+            if (position == layouts.length - 1) {
+                // last page. make button text to GOT IT
+                nextSlide.setText(getString(R.string.start));
+                skipIntro.setVisibility(View.GONE);
+            } else {
+                // still pages are left
+                nextSlide.setText(getString(R.string.nextSlide));
+                skipIntro.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        public void onPageScrolled(int arg0, float arg1, int arg2) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int arg0) {
+
+        }
+    };
     private PreferenceManager prefManager;
 
     @Override
@@ -43,12 +83,7 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_welcome);
-
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
-        dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
-        skipIntro = (Button) findViewById(R.id.skipIntro);
-        nextSlide = (Button) findViewById(R.id.nextSlide);
-
+        ButterKnife.bind(this);
 
         // layouts of all welcome sliders
         // add few more layouts if you want
@@ -117,36 +152,6 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), RegistrationActivity.class));
         finish();
     }
-
-    //  viewpager change listener
-    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
-
-        @Override
-        public void onPageSelected(int position) {
-            addBottomDots(position);
-
-            // changing the next button text 'NEXT' / 'GOT IT'
-            if (position == layouts.length - 1) {
-                // last page. make button text to GOT IT
-                nextSlide.setText(getString(R.string.start));
-                skipIntro.setVisibility(View.GONE);
-            } else {
-                // still pages are left
-                nextSlide.setText(getString(R.string.nextSlide));
-                skipIntro.setVisibility(View.VISIBLE);
-            }
-        }
-
-        @Override
-        public void onPageScrolled(int arg0, float arg1, int arg2) {
-
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int arg0) {
-
-        }
-    };
 
     /**
      * Making notification bar transparent
