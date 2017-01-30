@@ -23,15 +23,11 @@ import butterknife.ButterKnife;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    @BindView(R.id.view_pager)
     ViewPager viewPager;
-    @BindView(R.id.layoutDots)
+
     LinearLayout dotsLayout;
 
-    @BindView(R.id.skipIntro)
-    Button skipIntro;
-    @BindView(R.id.nextSlide)
-    Button nextSlide;
+    Button skipIntro, nextSlide;
 
 
     private int[] layouts;
@@ -83,7 +79,11 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_welcome);
-        ButterKnife.bind(this);
+        //ButterKnife.bind(this);
+        viewPager = (ViewPager)findViewById(R.id.view_pager);
+        dotsLayout = (LinearLayout)findViewById(R.id.layoutDots);
+        skipIntro = (Button)findViewById(R.id.skipIntro);
+        nextSlide = (Button)findViewById(R.id.nextSlide);
 
         // layouts of all welcome sliders
         // add few more layouts if you want
@@ -149,7 +149,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
-        startActivity(new Intent(getApplicationContext(), RegistrationActivity.class));
+        startActivity(new Intent(getApplicationContext(), StudentActivity.class));
         finish();
     }
 

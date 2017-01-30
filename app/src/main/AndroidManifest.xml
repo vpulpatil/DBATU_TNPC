@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dbatu.dbatu_tnpc">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -19,7 +20,9 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".SplashScreen"
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
+            android:clearTaskOnLaunch="true"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,6 +31,7 @@
         </activity>
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".WelcomeActivity" />
+        <activity android:name=".StudentActivity"/>
     </application>
 
 </manifest>

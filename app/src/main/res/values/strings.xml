@@ -76,11 +76,24 @@
     <string name="start">GOT IT</string>
 
     <string name="slide_1_title">News</string>
-    <string name="slide_1_desc">The easiest way get news about the Campus Recruitment</string>
+    <string name="slide_1_desc">The easiest way to get news about the Campus Recruitment</string>
 
     <string name="slide_2_title">Notify</string>
     <string name="slide_2_desc">Get Notifications about the workshops and seminars in our University</string>
     <string name="news_feed_logo">News feed logo</string>
     <string name="notification_logo">Notification Logo</string>
+    <string name="title_activity_student">StudentActivity</string>
+
+    <string-array name="Planets">
+        <item>Sun</item>
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
 
 </resources>

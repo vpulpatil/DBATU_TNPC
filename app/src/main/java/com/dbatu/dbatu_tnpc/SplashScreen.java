@@ -14,11 +14,15 @@ public class SplashScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        WelcomeScreen();
+    }
+
+    private void WelcomeScreen() {
         int SPLASH_TIME_OUT = 2500;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent welcomeIntent = new Intent(SplashScreen.this, WelcomeActivity.class);
+                Intent welcomeIntent = new Intent(SplashScreen.this, StudentActivity.class);
                 startActivity(welcomeIntent);
                 finish();
             }
