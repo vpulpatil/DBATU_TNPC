@@ -3,8 +3,11 @@ package com.dbatu.dbatu_tnpc;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -37,11 +40,12 @@ public class RegistrationActivity extends Activity {
     students_sgpa6, specifyOtherExam;
     private RadioButton studentMale, studentFemale, firstYearAdmission, dplomaAdmission, exam_yes, exam_no;
     private LinearLayout academicDetails, examDetails;
-    private TextView admissionDetails;
+    private TextView admissionDetails, clickToLogin;
     private TextInputLayout sgpaFirstSem, sgpaSecondSem, hscPercentage, diplomaPercentage, specifyOtherExamDetails;
     private Button registerStudent;
     private CheckBox exam_other, exam_gate, exam_gre, exam_cat, exam_gmat, exam_cmat, exam_mpsc_upsc;
     private Spinner departmentDropdownList, backlogDropdownList;
+    private ProgressDialog progressDialog;
 
     //for date of birth
     private TextView dateOfBirthView;
@@ -65,13 +69,25 @@ public class RegistrationActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        progressDialog = new ProgressDialog(this);
         instantiation();
+        clickToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         getDateOfBirth();
         openAcademicDetailsLayout();
         getDepartment();
         getBacklogRecord();
         openOrCloseExamDetailsLayout();
         doStudentRegistration();
+    }
+    public void onBackPressed(){
+        //do nothing
     }
 
     private void instantiation() {
@@ -105,6 +121,7 @@ public class RegistrationActivity extends Activity {
         //TextView Fields
         dateOfBirthView = (TextView) findViewById(R.id.dateofbirth);
         admissionDetails = (TextView)findViewById(R.id.typeOfAdmission);
+        clickToLogin = (TextView)findViewById(R.id.clicktologin);
 
         //Buttons
         registerStudent = (Button)findViewById(R.id.registerStudent);
@@ -133,10 +150,6 @@ public class RegistrationActivity extends Activity {
         //LinearLayout
         academicDetails = (LinearLayout)findViewById(R.id.academicDetails);
         examDetails = (LinearLayout)findViewById(R.id.examDetails);
-
-
-
-        //ButterKnife.bind(this);
 
         //Visibility of various fields
         registerStudent.setVisibility(View.GONE);
@@ -286,6 +299,8 @@ public class RegistrationActivity extends Activity {
         registerStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressDialog.setMessage("Please wait.....\n Registering");
+                progressDialog.show();
                 String firstName = studentFirstName.getText().toString().trim();
                 String middleName = studentMiddleName.getText().toString().trim();
                 String lastName = studentLastName.getText().toString().trim();
@@ -362,11 +377,11 @@ public class RegistrationActivity extends Activity {
                         ||sgpa6f<0||sgpa6f>10) {
                     Toast.makeText(getApplicationContext(), "Invalid Percentage or SGPA", Toast.LENGTH_SHORT).show();
                 }else{
-                    Firebase firstNameChildRef = dbatu_tnpc_firebase_reference.child("First Name");
+                    Firebase firstNameChildRef = dbatu_tnpc_firebase_reference.child("First_Name");
                     firstNameChildRef.setValue(firstName);
-                    Firebase middleNameChildRef = dbatu_tnpc_firebase_reference.child("Middle Name");
+                    Firebase middleNameChildRef = dbatu_tnpc_firebase_reference.child("Middle_Name");
                     middleNameChildRef.setValue(middleName);
-                    Firebase studentChildRef = dbatu_tnpc_firebase_reference.child("Last Name");
+                    Firebase studentChildRef = dbatu_tnpc_firebase_reference.child("Last_Name");
                     studentChildRef.setValue(lastName);
                     if (studentMale.isChecked()) {
                         Firebase maleChildRef = dbatu_tnpc_firebase_reference.child("Gender");
@@ -375,55 +390,59 @@ public class RegistrationActivity extends Activity {
                         Firebase femaleChildRef = dbatu_tnpc_firebase_reference.child("Gender");
                         femaleChildRef.setValue(female);
                     }
-                    Firebase dobChildRef = dbatu_tnpc_firebase_reference.child("Date Of Birth");
+                    Firebase dobChildRef = dbatu_tnpc_firebase_reference.child("Date_Of_Birth");
                     dobChildRef.setValue(DOB);
-                    Firebase contactNumberChildRef = dbatu_tnpc_firebase_reference.child("Contact Number");
+                    Firebase contactNumberChildRef = dbatu_tnpc_firebase_reference.child("Contact_Number");
                     contactNumberChildRef.setValue(contactNumber);
                     Firebase emailChildRef = dbatu_tnpc_firebase_reference.child("Email");
                     emailChildRef.setValue(email);
                     Firebase addressChildRef = dbatu_tnpc_firebase_reference.child("Address");
                     addressChildRef.setValue(address);
                     if (firstYearAdmission.isChecked()) {
-                        Firebase fyaChildRef = dbatu_tnpc_firebase_reference.child("Admission Type");
+                        Firebase fyaChildRef = dbatu_tnpc_firebase_reference.child("Admission_Type");
                         fyaChildRef.setValue(sFirstYearAdmission);
-                        Firebase hscChildRef = dbatu_tnpc_firebase_reference.child("HSC Percentage");
+                        Firebase hscChildRef = dbatu_tnpc_firebase_reference.child("HSC_Percentage");
                         hscChildRef.setValue(HSC);
-                        Firebase sgpa1ChildRef = dbatu_tnpc_firebase_reference.child("First Semester");
+                        Firebase sgpa1ChildRef = dbatu_tnpc_firebase_reference.child("First_Semester");
                         sgpa1ChildRef.setValue(sgpa1);
-                        Firebase sgpa2ChildRef = dbatu_tnpc_firebase_reference.child("Second Semester");
+                        Firebase sgpa2ChildRef = dbatu_tnpc_firebase_reference.child("Second_Semester");
                         sgpa2ChildRef.setValue(sgpa2);
                     } else {
-                        Firebase syaChildRef = dbatu_tnpc_firebase_reference.child("Admission Type");
+                        Firebase syaChildRef = dbatu_tnpc_firebase_reference.child("Admission_Type");
                         syaChildRef.setValue(sDiplomaAdmission);
-                        Firebase diplomaChildRef = dbatu_tnpc_firebase_reference.child("Diploma Percentage");
+                        Firebase diplomaChildRef = dbatu_tnpc_firebase_reference.child("Diploma_Percentage");
                         diplomaChildRef.setValue(diplomaPercentage);
                     }
                     Firebase departmentChildRef = dbatu_tnpc_firebase_reference.child("Department");
                     departmentChildRef.setValue(department);
-                    Firebase rollnoChildRef = dbatu_tnpc_firebase_reference.child("Roll Number");
+                    Firebase rollnoChildRef = dbatu_tnpc_firebase_reference.child("Roll_Number");
                     rollnoChildRef.setValue(rollno);
-                    Firebase sscChildRef = dbatu_tnpc_firebase_reference.child("SSC Percentage");
+                    Firebase sscChildRef = dbatu_tnpc_firebase_reference.child("SSC_Percentage");
                     sscChildRef.setValue(SSC);
-                    Firebase sgpa3ChildRef = dbatu_tnpc_firebase_reference.child("Third Semester");
+                    Firebase sgpa3ChildRef = dbatu_tnpc_firebase_reference.child("Third_Semester");
                     sgpa3ChildRef.setValue(sgpa3);
-                    Firebase sgpa4ChildRef = dbatu_tnpc_firebase_reference.child("Forth Semester");
+                    Firebase sgpa4ChildRef = dbatu_tnpc_firebase_reference.child("Forth_Semester");
                     sgpa4ChildRef.setValue(sgpa4);
-                    Firebase sgpa5ChildRef = dbatu_tnpc_firebase_reference.child("Fifth Semester");
+                    Firebase sgpa5ChildRef = dbatu_tnpc_firebase_reference.child("Fifth_Semester");
                     sgpa5ChildRef.setValue(sgpa5);
-                    Firebase sgpa6ChildRef = dbatu_tnpc_firebase_reference.child("Sixth Semester");
+                    Firebase sgpa6ChildRef = dbatu_tnpc_firebase_reference.child("Sixth_Semester");
                     sgpa6ChildRef.setValue(sgpa6);
-                    Firebase backlogChildRef = dbatu_tnpc_firebase_reference.child("Number of Active Backlogs");
+                    Firebase backlogChildRef = dbatu_tnpc_firebase_reference.child("Number_of_Active_Backlogs");
                     backlogChildRef.setValue(backlog);
                     if (exam_yes.isChecked()) {
-                        Firebase yesChildRef = dbatu_tnpc_firebase_reference.child("Interested In Higher Studies");
+                        Firebase yesChildRef = dbatu_tnpc_firebase_reference.child("Interested_In_Higher_Studies");
                         yesChildRef.setValue(yes_exam);
-                        Firebase examChildRef = dbatu_tnpc_firebase_reference.child("Appearing for Exam");
+                        Firebase examChildRef = dbatu_tnpc_firebase_reference.child("Appearing_for_Exam");
                         examChildRef.setValue(exams);
                     } else {
-                        Firebase noChildRef = dbatu_tnpc_firebase_reference.child("Interested In Higher Studies");
+                        Firebase noChildRef = dbatu_tnpc_firebase_reference.child("Interested_In_Higher_Studies");
                         noChildRef.setValue(no_exam);
                     }
+                    progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Successfully Registered", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });

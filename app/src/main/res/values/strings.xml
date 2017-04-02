@@ -83,17 +83,29 @@
     <string name="news_feed_logo">News feed logo</string>
     <string name="notification_logo">Notification Logo</string>
     <string name="title_activity_student">StudentActivity</string>
+    <string name="login">login</string>
+    <string name="Rno">Roll number</string>
+    <string name="college_logo">College logo</string>
+    <string name="click_here_to_register">click here to register</string>
+    <string name="new_1">New ?</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="action_news">action_news</string>
+    <string name="action_add">add</string>
+    <string name="add_co_ordinator">Add Co-ordinator</string>
+    <string name="student_info">Student Info</string>
+    <string name="add_company">Add Company</string>
+    <string name="send_notice">Send Notice</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="send">Send</string>
+    <string name="registration_form">Registration Form</string>
+    <string name="already_registered">already registered?</string>
+    <string name="click_here_to_login">click here to login</string>
 
-    <string-array name="Planets">
-        <item>Sun</item>
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+    <string-array name="authority">
+        <item>Student</item>
+        <item>TnPC Coordinator</item>
+        <item>TPO</item>
     </string-array>
 
 </resources>

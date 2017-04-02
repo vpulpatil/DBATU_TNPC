@@ -22,7 +22,7 @@ public class SplashScreen extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent welcomeIntent = new Intent(SplashScreen.this, StudentActivity.class);
+                Intent welcomeIntent = new Intent(SplashScreen.this, WelcomeActivity.class);
                 startActivity(welcomeIntent);
                 finish();
             }
