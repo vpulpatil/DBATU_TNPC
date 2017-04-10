@@ -31,10 +31,11 @@
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".WelcomeActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".StudentActivity" />
         <activity android:name=".TPOActivity" />
         <activity android:name=".TnPCActivity" />
-        <activity android:name=".SendNotification"/>
+        <activity android:name=".SendNotification" />
+        <activity android:name=".ListOfStudent" />
     </application>
 
 </manifest>

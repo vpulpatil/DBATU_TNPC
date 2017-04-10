@@ -13,11 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimaryDark"
+        app:titleTextColor="@color/colorPrimary"
+        android:titleTextColor="@color/colorPrimary"
         android:elevation="6dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <Button
+        android:id="@+id/addCoordinator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_co_ordinator"
@@ -33,6 +36,7 @@
         android:textColor="@color/colorPrimary"/>
 
     <Button
+        android:id="@+id/studentInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/student_info"
@@ -48,6 +52,7 @@
         android:textColor="@color/colorPrimary"/>
 
     <Button
+        android:id="@+id/sendNotice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/send_notice"
@@ -63,6 +68,7 @@
         android:textColor="@color/colorPrimary"/>
 
     <Button
+        android:id="@+id/addCompany"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_company"

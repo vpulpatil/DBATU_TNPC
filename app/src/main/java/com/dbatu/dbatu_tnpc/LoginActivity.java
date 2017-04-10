@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
@@ -16,7 +17,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -27,21 +27,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
-import java.util.Map;
-
 public class LoginActivity extends Activity {
 
-    private EditText email, rollno, password;
+    public static EditText email, rollno, password;
     private TextInputLayout loginEmail, loginRoll, loginPassword;
     private Button login;
     private TextView clickToRegister;
 
     private DatabaseReference ref;
     private FirebaseAuth mAuth;
+    private FirebaseDatabase mdata;
 
     private ProgressDialog mProgress;
-
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +47,8 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
-        //final String rollno1 = rollno.getText().toString().trim();
-        //ref = FirebaseDatabase.getInstance().getReference().child("Student").child(rollno1);
+        mdata = FirebaseDatabase.getInstance();
+        ref = mdata.getReference("Student").getRef();
         mProgress = new ProgressDialog(this);
 
         Instantiation();
@@ -69,8 +67,13 @@ public class LoginActivity extends Activity {
         });
     }
 
-    private void checkUserExist(){
+    private static long back_pressed;
 
+    @Override
+    public void onBackPressed() {
+        if (back_pressed + 2000 > System.currentTimeMillis()) super.onBackPressed();
+        else Toast.makeText(getBaseContext(), "Press once again to exit!", Toast.LENGTH_SHORT).show();
+        back_pressed = System.currentTimeMillis();
     }
 
     private void Selection() {
@@ -91,19 +94,37 @@ public class LoginActivity extends Activity {
                         @Override
                         public void onClick(View v) {
                             final String rollno1 = rollno.getText().toString().trim();
-                            ref = FirebaseDatabase.getInstance().getReference().child("Student").child(rollno1);
                             if (!TextUtils.isEmpty(rollno1)) {
+                                mProgress.setMessage("logging in....");
+                                mProgress.show();
+                                //ref.child(rollno1).getRef();
                                 ref.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                        Map<String, String> map = (Map)dataSnapshot.getValue();
-                                        String id = map.get("Roll_Number");
-                                        if (id == rollno1){
-                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        boolean loginData = dataSnapshot.hasChild(rollno1);
+                                        if (loginData) {
+                                            Intent intent = new Intent(LoginActivity.this, StudentActivity.class);
                                             startActivity(intent);
+                                            finish();
+                                            mProgress.dismiss();
+                                            rollno.setText(null);
                                         }else {
                                             Toast.makeText(getApplicationContext(), "You are not registered", Toast.LENGTH_SHORT).show();
+                                            mProgress.dismiss();
                                         }
+                                        /*for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                            String logindata = String.valueOf(postSnapshot.child("Roll_Number").getValue());
+                                            if (logindata.equals(rollno1)) {
+                                                Intent intent = new Intent(LoginActivity.this, StudentActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                                mProgress.dismiss();
+                                                rollno.setText(null);
+                                            } else {
+                                                Toast.makeText(getApplicationContext(), "You are not registered", Toast.LENGTH_SHORT).show();
+                                                mProgress.dismiss();
+                                            }
+                                        }*/
                                     }
 
                                     @Override
@@ -140,7 +161,7 @@ public class LoginActivity extends Activity {
                                             startActivity(intent);
                                             mProgress.dismiss();
                                         }else {
-                                            Toast.makeText(getApplicationContext(), "Error login", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getApplicationContext(), "Invalid Email or Password", Toast.LENGTH_LONG).show();
                                             mProgress.dismiss();
                                         }
                                     }
@@ -174,7 +195,7 @@ public class LoginActivity extends Activity {
                                             startActivity(intent);
                                             mProgress.dismiss();
                                         }else {
-                                            Toast.makeText(getApplicationContext(), "Error login", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getApplicationContext(), "Invalid Email or Password", Toast.LENGTH_LONG).show();
                                             mProgress.dismiss();
                                         }
                                     }
