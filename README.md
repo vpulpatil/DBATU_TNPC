@@ -1,4 +1,4 @@
-# DBATU_TNPC
+TnPC
 
 Final year of bachelor or master’s programme consists of campus recruitment which is a vital process of any Institute. Every year, companies visit to campus for mass recruitment of final year students. Thus, every undergraduate student must know which company is recruiting in the campus, when it is coming, what job profile it needs and what selection process it is going to keep. In every college, various seminars and programs are organized regarding training and placement purpose where prior information needs to be provided to the concerned students. Hence, a system is needed for rectifying all the errors and to spread out required information to the concerned students in less amount of time.
 
