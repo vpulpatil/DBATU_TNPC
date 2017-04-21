@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,9 +18,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class StudentActivity extends AppCompatActivity {
+public class NewsFeed extends AppCompatActivity {
 
-    private Toolbar myToolbar;
+    private TextView empty;
 
     private DatabaseReference ref;
     private FirebaseDatabase mdata;
@@ -31,16 +32,15 @@ public class StudentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student);
-        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setContentView(R.layout.activity_news_feed);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-
-        Intent intent = getIntent();
-        String roll = intent.getExtras().getString("roll");
-        getSupportActionBar().setTitle(roll);
+        getSupportActionBar().setTitle("News");
 
         mdata = FirebaseDatabase.getInstance();
         ref = mdata.getReference("Notifications").getRef();
+
+        empty = (TextView)findViewById(R.id.empty);
 
         notificationList = (ListView)findViewById(R.id.notificationList);
         ref.addValueEventListener(new ValueEventListener() {
@@ -50,13 +50,14 @@ public class StudentActivity extends AppCompatActivity {
                     notifications.add(notification.getKey());
 
                 }
-                arrayAdapter = new ArrayAdapter(StudentActivity.this, android.R.layout.simple_list_item_1,notifications);
+                arrayAdapter = new ArrayAdapter(NewsFeed.this, android.R.layout.simple_list_item_1,notifications);
                 notificationList.setAdapter(arrayAdapter);
+                notificationList.setEmptyView(empty);
                 notificationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         String title =(String) parent.getItemAtPosition(position);
-                        Intent intent = new Intent(StudentActivity.this, NewsDetails.class);
+                        Intent intent = new Intent(NewsFeed.this, NewsDetails.class);
                         intent.putExtra("title", title);
                         startActivity(intent);
                     }
@@ -69,4 +70,5 @@ public class StudentActivity extends AppCompatActivity {
             }
         });
     }
+
 }

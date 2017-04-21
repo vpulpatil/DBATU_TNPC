@@ -7,7 +7,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -35,7 +34,7 @@ public class RegistrationActivity extends Activity {
 
     //various fields in registration form
 
-    private EditText studentFirstName, studentMiddleName, studentLastName, studentContactNumber, studentEmail, studentAddress, studentRollno,
+    private EditText studentFullName, studentContactNumber, studentEmail, studentAddress, studentRollno,
     studentSSCPercentage, studentHSCPercentage, studentDiplomaPercentage, students_sgpa1, students_sgpa2, students_sgpa3, students_sgpa4, students_sgpa5,
     students_sgpa6, specifyOtherExam;
     private RadioButton studentMale, studentFemale, firstYearAdmission, dplomaAdmission, exam_yes, exam_no;
@@ -70,7 +69,7 @@ public class RegistrationActivity extends Activity {
         setContentView(R.layout.activity_registration);
 
         progressDialog = new ProgressDialog(this);
-        instantiation();
+        initialize();
         clickToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,15 +86,13 @@ public class RegistrationActivity extends Activity {
         doStudentRegistration();
     }
     public void onBackPressed(){
-        //do nothing
+        RegistrationActivity.this.finish();
     }
 
-    private void instantiation() {
+    private void initialize() {
 
         //EditText Fields
-        studentFirstName = (EditText)findViewById(R.id.studentFirstName);
-        studentMiddleName = (EditText)findViewById(R.id.studentMiddleName);
-        studentLastName = (EditText)findViewById(R.id.studentLastName);
+        studentFullName = (EditText)findViewById(R.id.studentFullName);
         studentContactNumber = (EditText)findViewById(R.id.studentContactNumber);
         studentEmail = (EditText)findViewById(R.id.studentEmail);
         studentAddress = (EditText)findViewById(R.id.studentAddress);
@@ -173,7 +170,9 @@ public class RegistrationActivity extends Activity {
     @Override
     protected Dialog onCreateDialog(int id) {
         if (id == 999) {
-            return new DatePickerDialog(this, myDateListener, year, month, day);
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this, myDateListener, year, month, day);
+            datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+            return datePickerDialog;
         }
         return null;
     }
@@ -301,9 +300,7 @@ public class RegistrationActivity extends Activity {
             public void onClick(View view) {
                 progressDialog.setMessage("Please wait.....\n Registering");
                 progressDialog.show();
-                String firstName = studentFirstName.getText().toString().trim();
-                String middleName = studentMiddleName.getText().toString().trim();
-                String lastName = studentLastName.getText().toString().trim();
+                String firstName = studentFullName.getText().toString().trim();
                 String male = studentMale.getText().toString().trim();
                 String female = studentFemale.getText().toString().trim();
                 String DOB = dateOfBirthView.getText().toString().trim();
@@ -362,27 +359,20 @@ public class RegistrationActivity extends Activity {
 
                 //Adding data to firebase
                 float sscf = Float.parseFloat(SSC);
-                float hscf = Float.parseFloat(HSC);
-                float sgpa1f = Float.parseFloat(sgpa1);
-                float sgpa2f = Float.parseFloat(sgpa2);
                 float sgpa3f = Float.parseFloat(sgpa3);
                 float sgpa4f = Float.parseFloat(sgpa4);
                 float sgpa5f = Float.parseFloat(sgpa5);
                 float sgpa6f = Float.parseFloat(sgpa6);
-                if (firstName.equals(null)||lastName.equals(null)||DOB.equals(null)||contactNumber.equals(null)||email.equals(null)||
+                if (firstName.equals(null)||DOB.equals(null)||contactNumber.equals(null)||email.equals(null)||
                         address.equals(null)||rollno.equals(null)||SSC.equals(null)||HSC.equals(null)||sgpa1.equals(null)||sgpa2.equals(null)
                         ||sgpa3.equals(null) ||sgpa4.equals(null)||sgpa5.equals(null)|| sgpa6.equals(null)){
                     Toast.makeText(RegistrationActivity.this, "All * Fields are Compulsory", Toast.LENGTH_SHORT).show();
-                }if (sscf<0||sscf>100||hscf<0||hscf>100||sgpa1f<0||sgpa1f>10||sgpa2f<0||sgpa2f>10||sgpa3f<0||sgpa3f>10||sgpa4f<0||sgpa4f>10||sgpa5f<0||sgpa5f>10
+                }if (sscf<0||sscf>100||sgpa3f<0||sgpa3f>10||sgpa4f<0||sgpa4f>10||sgpa5f<0||sgpa5f>10
                         ||sgpa6f<0||sgpa6f>10) {
                     Toast.makeText(getApplicationContext(), "Invalid Percentage or SGPA", Toast.LENGTH_SHORT).show();
                 }else{
-                    Firebase firstNameChildRef = dbatu_tnpc_firebase_reference.child("First_Name");
-                    firstNameChildRef.setValue(firstName);
-                    Firebase middleNameChildRef = dbatu_tnpc_firebase_reference.child("Middle_Name");
-                    middleNameChildRef.setValue(middleName);
-                    Firebase studentChildRef = dbatu_tnpc_firebase_reference.child("Last_Name");
-                    studentChildRef.setValue(lastName);
+                    Firebase fullNameChildRef = dbatu_tnpc_firebase_reference.child("Full_Name");
+                    fullNameChildRef.setValue(firstName);
                     if (studentMale.isChecked()) {
                         Firebase maleChildRef = dbatu_tnpc_firebase_reference.child("Gender");
                         maleChildRef.setValue(male);

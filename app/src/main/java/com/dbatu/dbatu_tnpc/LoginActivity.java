@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,9 +13,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,6 +33,7 @@ public class LoginActivity extends Activity {
     private TextInputLayout loginEmail, loginRoll, loginPassword;
     private Button login;
     private TextView clickToRegister;
+    private LinearLayout linearLayout;
 
     private DatabaseReference ref;
     private FirebaseAuth mAuth;
@@ -46,12 +47,15 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        linearLayout = (LinearLayout)findViewById(R.id.loginActivity);
+
         mAuth = FirebaseAuth.getInstance();
         mdata = FirebaseDatabase.getInstance();
         ref = mdata.getReference("Student").getRef();
+        ref.keepSynced(true);
         mProgress = new ProgressDialog(this);
 
-        Instantiation();
+        initialize();
         loginRoll.setVisibility(View.VISIBLE);
         loginEmail.setVisibility(View.GONE);
         loginPassword.setVisibility(View.GONE);
@@ -62,7 +66,6 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -72,8 +75,10 @@ public class LoginActivity extends Activity {
     @Override
     public void onBackPressed() {
         if (back_pressed + 2000 > System.currentTimeMillis()) super.onBackPressed();
-        else Toast.makeText(getBaseContext(), "Press once again to exit!", Toast.LENGTH_SHORT).show();
-        back_pressed = System.currentTimeMillis();
+        else {Snackbar snackbar = Snackbar.make(linearLayout, "Press once again to exit!", Snackbar.LENGTH_SHORT);
+            snackbar.show();
+            back_pressed = System.currentTimeMillis();
+        }
     }
 
     private void Selection() {
@@ -97,25 +102,25 @@ public class LoginActivity extends Activity {
                             if (!TextUtils.isEmpty(rollno1)) {
                                 mProgress.setMessage("logging in....");
                                 mProgress.show();
-                                //ref.child(rollno1).getRef();
                                 ref.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         boolean loginData = dataSnapshot.hasChild(rollno1);
                                         if (loginData) {
                                             Intent intent = new Intent(LoginActivity.this, StudentActivity.class);
+                                            intent.putExtra("roll", rollno1);
                                             startActivity(intent);
-                                            finish();
                                             mProgress.dismiss();
                                             rollno.setText(null);
                                         }else {
-                                            Toast.makeText(getApplicationContext(), "You are not registered", Toast.LENGTH_SHORT).show();
+                                            Snackbar snackbar = Snackbar.make(linearLayout, "You are not registered", Snackbar.LENGTH_SHORT);
+                                            snackbar.show();
                                             mProgress.dismiss();
                                         }
                                         /*for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                                             String logindata = String.valueOf(postSnapshot.child("Roll_Number").getValue());
                                             if (logindata.equals(rollno1)) {
-                                                Intent intent = new Intent(LoginActivity.this, StudentActivity.class);
+                                                Intent intent = new Intent(LoginActivity.this, NewsDetails.class);
                                                 startActivity(intent);
                                                 finish();
                                                 mProgress.dismiss();
@@ -133,7 +138,8 @@ public class LoginActivity extends Activity {
                                     }
                                 });
                             }else{
-                                Toast.makeText(getApplicationContext(), "Please enter your roll number", Toast.LENGTH_SHORT).show();
+                                Snackbar snackbar = Snackbar.make(linearLayout, "Please enter your roll number", Snackbar.LENGTH_SHORT);
+                                snackbar.show();
                             }
                         }
                     });
@@ -148,26 +154,27 @@ public class LoginActivity extends Activity {
                     login.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            final String email1 = email.getText().toString().trim();
+                            final String emai11 = email.getText().toString().trim();
                             final String password1 = password.getText().toString().trim();
-                            if (!TextUtils.isEmpty(email1) && !TextUtils.isEmpty(password1)) {
+                            if (!TextUtils.isEmpty(emai11) && !TextUtils.isEmpty(password1)) {
                                 mProgress.setMessage("logging in....");
                                 mProgress.show();
-                                mAuth.signInWithEmailAndPassword(email1, password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                mAuth.signInWithEmailAndPassword(emai11, password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()){
-                                            Intent intent = new Intent(LoginActivity.this, TnPCActivity.class);
-                                            startActivity(intent);
+                                            checkIfTnpcUserExist();
                                             mProgress.dismiss();
                                         }else {
-                                            Toast.makeText(getApplicationContext(), "Invalid Email or Password", Toast.LENGTH_LONG).show();
+                                            Snackbar snackbar = Snackbar.make(linearLayout, "Invalid Email or Password", Snackbar.LENGTH_SHORT);
+                                            snackbar.show();
                                             mProgress.dismiss();
                                         }
                                     }
                                 });
                             }else{
-                                Toast.makeText(getApplicationContext(), "Please enter your credentials", Toast.LENGTH_SHORT).show();
+                                Snackbar snackbar = Snackbar.make(linearLayout, "Please enter your credentials", Snackbar.LENGTH_SHORT);
+                                snackbar.show();
                             }
                         }
                     });
@@ -191,17 +198,18 @@ public class LoginActivity extends Activity {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()){
-                                            Intent intent = new Intent(LoginActivity.this, TPOActivity.class);
-                                            startActivity(intent);
+                                            checkIfTPOUserExist();
                                             mProgress.dismiss();
                                         }else {
-                                            Toast.makeText(getApplicationContext(), "Invalid Email or Password", Toast.LENGTH_LONG).show();
+                                            Snackbar snackbar = Snackbar.make(linearLayout, "Invalid Email or Password", Snackbar.LENGTH_SHORT);
+                                            snackbar.show();
                                             mProgress.dismiss();
                                         }
                                     }
                                 });
                             }else{
-                                Toast.makeText(getApplicationContext(), "Please enter your credentials", Toast.LENGTH_SHORT).show();
+                                Snackbar snackbar = Snackbar.make(linearLayout, "Please enter your credentials", Snackbar.LENGTH_SHORT);
+                                snackbar.show();
                             }
                         }
                     });
@@ -214,7 +222,59 @@ public class LoginActivity extends Activity {
         });
     }
 
-    private void Instantiation() {
+    private void checkIfTPOUserExist() {
+        final String user_id = mAuth.getCurrentUser().getUid();
+        ref = FirebaseDatabase.getInstance().getReference().child("TPO");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild(user_id)){
+                    Intent intent = new Intent(LoginActivity.this, TPOActivity.class);
+                    startActivity(intent);
+                    mProgress.dismiss();
+                    email.setText(null);
+                    password.setText(null);
+                } else {
+                    Snackbar snackbar = Snackbar.make(linearLayout, "You are not a TPO", Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                    mProgress.dismiss();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void checkIfTnpcUserExist() {
+        final String user_id = mAuth.getCurrentUser().getUid();
+        ref = FirebaseDatabase.getInstance().getReference().child("TnPC_Coordinator");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild(user_id)){
+                    Intent intent = new Intent(LoginActivity.this, TnPCActivity.class);
+                    startActivity(intent);
+                    mProgress.dismiss();
+                    email.setText(null);
+                    password.setText(null);
+                } else {
+                    Snackbar snackbar = Snackbar.make(linearLayout, "You are not a TnPC Coordinator", Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                    mProgress.dismiss();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void initialize() {
         //EditText
         email = (EditText)findViewById(R.id.loginEmail);
         password = (EditText)findViewById(R.id.loginPassword);

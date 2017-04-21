@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context="com.dbatu.dbatu_tnpc.StudentInfoTPO">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimaryDark"
+        app:titleTextColor="@color/colorPrimary"
+        android:titleTextColor="@color/colorPrimary"
+        android:elevation="6dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        tools:targetApi="m" />
+
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <LinearLayout
+            android:id="@+id/personalDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/personal_details"
+                android:textSize="28sp"
+                android:textColor="#fff"
+                android:gravity="center"
+                android:background="@color/colorAccent"
+                android:padding="8dp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:focusable="true"
+                android:focusableInTouchMode="false">
+
+                <EditText
+                    android:id="@+id/studentName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/full_name"
+                    android:inputType="textPersonName|textCapCharacters"
+                    android:maxLines="1"
+                    android:textAllCaps="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:focusable="true"
+                android:focusableInTouchMode="false">
+
+                <EditText
+                    android:id="@+id/studentGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/gender_m"
+                    android:inputType="textPersonName|textCapCharacters"
+                    android:maxLines="1"
+                    android:textAllCaps="true"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:focusable="true"
+                android:focusableInTouchMode="false">
+
+                <EditText
+                    android:id="@+id/studentDOB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/date_of_birth_i"
+                    android:inputType="textPersonName|textCapCharacters"
+                    android:maxLines="1"
+                    android:textAllCaps="true"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <EditText
+                    android:id="@+id/studentContactNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/contact_num"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:maxLength="11"
+                    tools:ignore="Deprecated" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp">
+
+                <EditText
+                    android:id="@+id/studentEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email_i"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/studentAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/address_i"
+                    android:lines="3"
+                    android:gravity="start"
+                    android:inputType="text|textCapCharacters|textMultiLine"
+                    android:maxLines="1" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:focusable="true"
+                android:focusableInTouchMode="false">
+
+                <EditText
+                    android:id="@+id/studentAdmissionType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/admission_type"
+                    android:inputType="textPersonName|textCapCharacters"
+                    android:maxLines="1"
+                    android:textAllCaps="true"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/academicDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+
+            <TextView
+                android:id="@+id/typeOfAdmission"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/academic_details"
+                android:textSize="28sp"
+                android:textColor="#fff"
+                android:gravity="center"
+                android:background="@color/colorAccent"
+                android:padding="8dp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:focusable="true"
+                android:focusableInTouchMode="false">
+
+                <EditText
+                    android:id="@+id/studentDept"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/department_i"
+                    android:inputType="textPersonName|textCapCharacters"
+                    android:maxLines="1"
+                    android:textAllCaps="true"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <EditText
+                    android:id="@+id/studentRollno"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/roll_number_i"
+                    android:inputType="number"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <EditText
+                    android:id="@+id/studentSSCPercentage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/ssc_percentage_i"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:maxLength="5"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/studentHSCTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <EditText
+                    android:id="@+id/studentHSCPercentage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hsc_percentage_i"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:maxLength="5"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/studentiDplomaTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <EditText
+                    android:id="@+id/studentDiplomaPercentage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/diploma_percentage_i"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:maxLength="4"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/studentSGPA1TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <EditText
+                    android:id="@+id/studentSGPA1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/_1st_semester_sgpa_i"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:maxLength="4"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/studentSGPA2TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <EditText
+                    android:id="@+id/studentSGPA2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/_2nd_semester_sgpa_i"
+                    android:inputType="numberDecimal"
+                    android:maxLength="4"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <EditText
+                    android:id="@+id/studentSGPA3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/_3rd_semester_sgpa_i"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:maxLength="4"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <EditText
+                    android:id="@+id/studentSGPA4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/_4th_semester_sgpa_i"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:maxLength="4"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <EditText
+                    android:id="@+id/studentSGPA5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/_5th_semester_sgpa_i"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:maxLength="4"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <EditText
+                    android:id="@+id/studentSGPA6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/_6th_semester_sgpa_i"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:maxLength="4"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <EditText
+                    android:id="@+id/studentActiveBacklog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/active_backlog"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <EditText
+                    android:id="@+id/interestedExams"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/appearing_for_exams"
+                    android:inputType="text"
+                    android:maxLines="1"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/updateInfo"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="@string/update"
+            android:textColor="@color/colorAccent"/>
+
+        <Button
+            android:id="@+id/edit_tpo"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="@string/edit"
+            android:textColor="@color/colorAccent"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/passTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/passwordForTnpc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="text"
+                android:maxLines="1"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/addTnpc"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="@string/add_coordinator"
+            android:textColor="@color/colorAccent"/>
+
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>

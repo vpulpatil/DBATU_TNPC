@@ -12,7 +12,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <TextView
             android:layout_width="match_parent"
@@ -94,49 +96,18 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:focusable="true"
+                android:focusableInTouchMode="false">
 
                 <EditText
-                    android:id="@+id/studentFirstName"
+                    android:id="@+id/studentFullName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/first_name"
+                    android:hint="@string/full_name_r"
                     android:inputType="textPersonName|textCapCharacters"
                     android:maxLines="1"
-                    android:textAllCaps="true" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp">
-
-                <EditText
-                    android:id="@+id/studentMiddleName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/middle_name"
-                    android:inputType="textPersonName|textCapCharacters"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    tools:ignore="Deprecated" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp">
-
-                <EditText
-                    android:id="@+id/studentLastName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/last_name"
-                    android:inputType="textPersonName|textCapCharacters"
-                    android:maxLines="1"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -393,8 +364,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/_2nd_semester_sgpa"
                     android:inputType="numberDecimal"
-                    android:maxLines="1"
-                    android:maxLength="4"/>
+                    android:maxLength="4"
+                    android:maxLines="1" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -613,12 +584,7 @@
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:text="@string/submit"
-            android:textColor="@color/colorAccent"
-            tools:layout_conversion_absoluteX="8dp"
-            tools:layout_conversion_absoluteY="2412dp"
-            tools:layout_conversion_absoluteWidth="395dp"
-            tools:layout_conversion_absoluteHeight="64dp" />
-
+            android:textColor="@color/colorAccent"/>
 
     </LinearLayout>
 </ScrollView>

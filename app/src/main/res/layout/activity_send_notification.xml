@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
+    android:id="@+id/scrollView"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,18 +10,24 @@
     tools:context="com.dbatu.dbatu_tnpc.SendNotification">
 
         <LinearLayout
+            android:id="@+id/linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/my_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/colorPrimaryDark"
+                app:titleTextColor="@color/colorPrimary"
+                android:titleTextColor="@color/colorPrimary"
                 android:elevation="6dp"
                 android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                tools:targetApi="m" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -32,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/title"
                 android:gravity="start"
-                android:inputType="text|textCapCharacters|textMultiLine"
+                android:inputType="text"
                 android:maxLines="1"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="15dp"
@@ -51,7 +58,7 @@
                 android:lines="20"
                 android:hint="@string/description"
                 android:gravity="start"
-                android:inputType="text|textCapCharacters|textMultiLine"
+                android:inputType="text|textMultiLine"
                 android:maxLines="1"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="15dp"
@@ -60,10 +67,12 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
+            android:id="@+id/sendNotification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/send"
             android:background="@color/colorPrimaryDark"
+            android:textColor="#fff"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"/>

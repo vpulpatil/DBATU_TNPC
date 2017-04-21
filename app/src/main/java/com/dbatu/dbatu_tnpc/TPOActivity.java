@@ -1,11 +1,7 @@
 package com.dbatu.dbatu_tnpc;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,7 +13,7 @@ import android.widget.Button;
 
 public class TPOActivity extends AppCompatActivity {
 
-    private Button addCoordinator, addCompany, sendNotification, studentInfo;
+    private Button addCompany, sendNotification, studentInfo_addCoordinator, newsFeed, companyInfo;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -25,8 +21,33 @@ public class TPOActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tpo);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle("TPO");
 
-        instantiation();
+        initialization();
+
+        studentInfo_addCoordinator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TPOActivity.this, ListOfStudentTPO.class);
+                startActivity(intent);
+            }
+        });
+
+        companyInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TPOActivity.this, ListOfCompany.class);
+                startActivity(intent);
+            }
+        });
+
+        addCompany.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TPOActivity.this, AddCompany.class);
+                startActivity(intent);
+            }
+        });
 
         sendNotification.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,20 +57,21 @@ public class TPOActivity extends AppCompatActivity {
             }
         });
 
-        studentInfo.setOnClickListener(new View.OnClickListener() {
+        newsFeed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TPOActivity.this, ListOfStudent.class);
+                Intent intent = new Intent(TPOActivity.this, NewsFeed.class);
                 startActivity(intent);
             }
         });
     }
 
-    private void instantiation() {
+    private void initialization() {
         addCompany = (Button)findViewById(R.id.addCompany);
-        addCoordinator = (Button)findViewById(R.id.addCoordinator);
         sendNotification = (Button)findViewById(R.id.sendNotice);
-        studentInfo = (Button)findViewById(R.id.studentInfo);
+        studentInfo_addCoordinator = (Button)findViewById(R.id.studentInfo_addCoordinator);
+        newsFeed = (Button)findViewById(R.id.newsFeed);
+        companyInfo = (Button)findViewById(R.id.companyInfo);
     }
 
     public void onBackPressed(){
@@ -59,8 +81,6 @@ public class TPOActivity extends AppCompatActivity {
                 .setPositiveButton("Sign Out", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         TPOActivity.this.finish();
-                        LoginActivity.email.setText(null);
-                        LoginActivity.password.setText(null);
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {

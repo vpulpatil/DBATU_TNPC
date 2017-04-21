@@ -17,26 +17,11 @@
         android:titleTextColor="@color/colorPrimary"
         android:elevation="6dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        tools:targetApi="m"/>
 
     <Button
-        android:id="@+id/addCoordinator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add_co_ordinator"
-        android:textAlignment="textStart"
-        android:background="@color/colorPrimaryDark"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:drawableStart="@drawable/ic_add_white_24dp"
-        android:gravity="center"
-        android:paddingLeft="50dp"
-        android:drawablePadding="50dp"
-        android:textColor="@color/colorPrimary"/>
-
-    <Button
-        android:id="@+id/studentInfo"
+        android:id="@+id/studentInfo_addCoordinator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/student_info"
@@ -52,16 +37,16 @@
         android:textColor="@color/colorPrimary"/>
 
     <Button
-        android:id="@+id/sendNotice"
+        android:id="@+id/companyInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/send_notice"
+        android:text="@string/company_info"
         android:textAlignment="textStart"
         android:background="@color/colorPrimaryDark"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:drawableStart="@drawable/ic_speaker_notes_white_24dp"
+        android:drawableStart="@drawable/ic_list_white_24dp"
         android:gravity="center"
         android:paddingLeft="50dp"
         android:drawablePadding="50dp"
@@ -78,6 +63,38 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:drawableStart="@drawable/ic_add_white_24dp"
+        android:gravity="center"
+        android:paddingLeft="50dp"
+        android:drawablePadding="50dp"
+        android:textColor="@color/colorPrimary"/>
+
+    <Button
+        android:id="@+id/sendNotice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/send_notice"
+        android:textAlignment="textStart"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:drawableStart="@drawable/ic_send_white_24dp"
+        android:gravity="center"
+        android:paddingLeft="50dp"
+        android:drawablePadding="50dp"
+        android:textColor="@color/colorPrimary"/>
+
+    <Button
+        android:id="@+id/newsFeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/news_feed"
+        android:textAlignment="textStart"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:drawableStart="@drawable/ic_speaker_notes_white_24dp"
         android:gravity="center"
         android:paddingLeft="50dp"
         android:drawablePadding="50dp"
