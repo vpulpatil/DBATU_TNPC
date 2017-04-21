@@ -138,6 +138,7 @@
     <string name="edit">Edit</string>
     <string name="full_name_r">Full Name *</string>
     <string name="add_coordinator">Add Coordinator</string>
+    <string name="student_info_update_info">Student Info / Update Info</string>
 
     <string-array name="authority">
         <item>Student</item>
