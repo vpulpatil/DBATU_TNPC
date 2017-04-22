@@ -302,7 +302,7 @@ public class RegistrationActivity extends Activity {
                 progressDialog.setMessage("Please wait.....\n Registering");
                 progressDialog.setCanceledOnTouchOutside(false);
                 progressDialog.show();
-                String firstName = studentFullName.getText().toString().trim();
+                String fullName = studentFullName.getText().toString().trim();
                 String male = studentMale.getText().toString().trim();
                 String female = studentFemale.getText().toString().trim();
                 String DOB = dateOfBirthView.getText().toString().trim();
@@ -365,7 +365,7 @@ public class RegistrationActivity extends Activity {
                 float sgpa4f = Float.parseFloat(sgpa4);
                 float sgpa5f = Float.parseFloat(sgpa5);
                 float sgpa6f = Float.parseFloat(sgpa6);
-                if (firstName.equals(null)||DOB.equals(null)||contactNumber.equals(null)||email.equals(null)||
+                if (fullName.equals(null)||DOB.equals(null)||contactNumber.equals(null)||email.equals(null)||
                         address.equals(null)||rollno.equals(null)||SSC.equals(null)||HSC.equals(null)||sgpa1.equals(null)||sgpa2.equals(null)
                         ||sgpa3.equals(null) ||sgpa4.equals(null)||sgpa5.equals(null)|| sgpa6.equals(null)){
                     Toast.makeText(RegistrationActivity.this, "All * Fields are Compulsory", Toast.LENGTH_SHORT).show();
@@ -374,7 +374,7 @@ public class RegistrationActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "Invalid Percentage or SGPA", Toast.LENGTH_SHORT).show();
                 }else{
                     Firebase fullNameChildRef = dbatu_tnpc_firebase_reference.child("Full_Name");
-                    fullNameChildRef.setValue(firstName);
+                    fullNameChildRef.setValue(fullName);
                     if (studentMale.isChecked()) {
                         Firebase maleChildRef = dbatu_tnpc_firebase_reference.child("Gender");
                         maleChildRef.setValue(male);
