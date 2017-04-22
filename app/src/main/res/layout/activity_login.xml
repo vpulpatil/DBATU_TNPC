@@ -110,6 +110,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.9"
+        android:layout_gravity="center"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -117,7 +118,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/new_1"
-            android:layout_marginEnd="6dp"/>
+            android:layout_marginEnd="6dp"
+            android:padding="8dp"/>
 
         <View
             android:layout_width="1dp"
@@ -131,7 +133,8 @@
             android:layout_height="wrap_content"
             android:text="@string/click_here_to_register"
             android:textColor="@color/colorPrimaryDark"
-            android:layout_marginStart="6dp"/>
+            android:layout_marginStart="6dp"
+            android:padding="8dp"/>
 
     </LinearLayout>
 

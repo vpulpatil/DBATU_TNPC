@@ -100,7 +100,8 @@ public class LoginActivity extends Activity {
                         public void onClick(View v) {
                             final String rollno1 = rollno.getText().toString().trim();
                             if (!TextUtils.isEmpty(rollno1)) {
-                                mProgress.setMessage("logging in....");
+                                mProgress.setMessage("Logging in....");
+                                mProgress.setCanceledOnTouchOutside(false);
                                 mProgress.show();
                                 ref.addValueEventListener(new ValueEventListener() {
                                     @Override
@@ -157,7 +158,8 @@ public class LoginActivity extends Activity {
                             final String emai11 = email.getText().toString().trim();
                             final String password1 = password.getText().toString().trim();
                             if (!TextUtils.isEmpty(emai11) && !TextUtils.isEmpty(password1)) {
-                                mProgress.setMessage("logging in....");
+                                mProgress.setMessage("Logging in....");
+                                mProgress.setCanceledOnTouchOutside(false);
                                 mProgress.show();
                                 mAuth.signInWithEmailAndPassword(emai11, password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
@@ -192,7 +194,8 @@ public class LoginActivity extends Activity {
                             final String email1 = email.getText().toString().trim();
                             final String password1 = password.getText().toString().trim();
                             if (!TextUtils.isEmpty(email1) && !TextUtils.isEmpty(password1)) {
-                                mProgress.setMessage("logging in....");
+                                mProgress.setMessage("Logging in....");
+                                mProgress.setCanceledOnTouchOutside(false);
                                 mProgress.show();
                                 mAuth.signInWithEmailAndPassword(email1, password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override

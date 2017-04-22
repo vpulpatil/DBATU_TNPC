@@ -119,7 +119,7 @@ public class StudentInfoTPO extends AppCompatActivity {
             Snackbar snackbar = Snackbar.make(linearLayout, "Please enter the password", Snackbar.LENGTH_SHORT);
             snackbar.show();
         }else{
-            progressDialog.setMessage("adding...");
+            progressDialog.setMessage("Adding...");
             progressDialog.show();
             firebaseAuth.createUserWithEmailAndPassword(email, _password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override

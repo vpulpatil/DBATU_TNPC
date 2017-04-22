@@ -63,6 +63,8 @@ public class SendNotification extends AppCompatActivity {
             myRef.setValue(notifications);
             title.setText("");
             desc.setText("");
+            Toast.makeText(this, "News created successfully and is Live", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 

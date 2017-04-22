@@ -109,8 +109,6 @@ public class TPOActivity extends AppCompatActivity {
                         .setPositiveButton("Sign Out", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 TPOActivity.this.finish();
-                                LoginActivity.email.setText(null);
-                                LoginActivity.password.setText(null);
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {

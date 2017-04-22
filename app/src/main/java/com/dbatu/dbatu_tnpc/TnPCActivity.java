@@ -29,7 +29,7 @@ public class TnPCActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tnpc);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-        getSupportActionBar().equals("TnPC");
+        getSupportActionBar().setTitle("TnPC");
 
         sendNotification = (Button)findViewById(R.id.sendNotice);
         studentInfo = (Button)findViewById(R.id.studentInfo);

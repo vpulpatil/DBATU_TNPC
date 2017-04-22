@@ -298,7 +298,9 @@ public class RegistrationActivity extends Activity {
         registerStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 progressDialog.setMessage("Please wait.....\n Registering");
+                progressDialog.setCanceledOnTouchOutside(false);
                 progressDialog.show();
                 String firstName = studentFullName.getText().toString().trim();
                 String male = studentMale.getText().toString().trim();
