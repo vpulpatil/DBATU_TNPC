@@ -36,7 +36,7 @@ public class LoginActivity extends Activity {
     private LinearLayout linearLayout;
 
     private DatabaseReference ref;
-    private FirebaseAuth mAuth;
+    private FirebaseAuth tnpcAuth, tpoAuth;
     private FirebaseDatabase mdata;
 
     private ProgressDialog mProgress;
@@ -49,8 +49,10 @@ public class LoginActivity extends Activity {
 
         linearLayout = (LinearLayout)findViewById(R.id.loginActivity);
 
-        mAuth = FirebaseAuth.getInstance();
+        tnpcAuth = FirebaseAuth.getInstance();
+        tpoAuth = FirebaseAuth.getInstance();
         mdata = FirebaseDatabase.getInstance();
+
         ref = mdata.getReference("Student").getRef();
         ref.keepSynced(true);
         mProgress = new ProgressDialog(this);
@@ -161,7 +163,7 @@ public class LoginActivity extends Activity {
                                 mProgress.setMessage("Logging in....");
                                 mProgress.setCanceledOnTouchOutside(false);
                                 mProgress.show();
-                                mAuth.signInWithEmailAndPassword(emai11, password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                tnpcAuth.signInWithEmailAndPassword(emai11, password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()){
@@ -197,7 +199,7 @@ public class LoginActivity extends Activity {
                                 mProgress.setMessage("Logging in....");
                                 mProgress.setCanceledOnTouchOutside(false);
                                 mProgress.show();
-                                mAuth.signInWithEmailAndPassword(email1, password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                tpoAuth.signInWithEmailAndPassword(email1, password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()){
@@ -226,7 +228,7 @@ public class LoginActivity extends Activity {
     }
 
     private void checkIfTPOUserExist() {
-        final String user_id = mAuth.getCurrentUser().getUid();
+        final String user_id = tpoAuth.getCurrentUser().getUid();
         ref = FirebaseDatabase.getInstance().getReference().child("TPO");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -252,7 +254,7 @@ public class LoginActivity extends Activity {
     }
 
     private void checkIfTnpcUserExist() {
-        final String user_id = mAuth.getCurrentUser().getUid();
+        final String user_id = tnpcAuth.getCurrentUser().getUid();
         ref = FirebaseDatabase.getInstance().getReference().child("TnPC_Coordinator");
         ref.addValueEventListener(new ValueEventListener() {
             @Override

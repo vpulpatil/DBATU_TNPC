@@ -11,9 +11,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class TPOActivity extends AppCompatActivity {
 
     private Button addCompany, sendNotification, studentInfo_addCoordinator, newsFeed, companyInfo;
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -22,6 +26,9 @@ public class TPOActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle("TPO");
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.getCurrentUser();
 
         initialization();
 
@@ -81,6 +88,7 @@ public class TPOActivity extends AppCompatActivity {
                 .setPositiveButton("Sign Out", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         TPOActivity.this.finish();
+                        mAuth.signOut();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -91,39 +99,4 @@ public class TPOActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.tpo_menu, menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_signout:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("Are you sure you want to Sign Out?")
-                        .setCancelable(false)
-                        .setPositiveButton("Sign Out", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                TPOActivity.this.finish();
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alert = builder.create();
-                alert.show();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
-
 }

@@ -10,13 +10,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class SendNotification extends AppCompatActivity {
@@ -45,12 +41,12 @@ public class SendNotification extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendNotificaation();
+                sendNotification();
             }
         });
     }
 
-    private void sendNotificaation() {
+    private void sendNotification() {
         String notificationTitle = title.getText().toString().trim();
         String notificationDescription = desc.getText().toString().trim();
 

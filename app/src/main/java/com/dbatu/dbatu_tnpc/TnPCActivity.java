@@ -23,6 +23,8 @@ public class TnPCActivity extends AppCompatActivity {
 
     private Button sendNotification, studentInfo, newsFeed;
 
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +32,9 @@ public class TnPCActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle("TnPC");
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.getCurrentUser();
 
         sendNotification = (Button)findViewById(R.id.sendNotice);
         studentInfo = (Button)findViewById(R.id.studentInfo);
@@ -67,6 +72,7 @@ public class TnPCActivity extends AppCompatActivity {
                 .setPositiveButton("Sign Out", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         TnPCActivity.this.finish();
+                        mAuth.signOut();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
