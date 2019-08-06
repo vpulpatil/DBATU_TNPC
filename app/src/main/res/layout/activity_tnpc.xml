@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/linearLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.dbatu.dbatu_tnpc.TnPCActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimaryDark"
+        app:titleTextColor="@color/colorPrimary"
+        android:titleTextColor="@color/colorPrimary"
+        android:elevation="6dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        tools:targetApi="m" />
+
+    <Button
+        android:id="@+id/studentInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/student_info_update_info"
+        android:textAlignment="textStart"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:drawableStart="@drawable/ic_list_white_24dp"
+        android:gravity="center"
+        android:paddingLeft="50dp"
+        android:drawablePadding="50dp"
+        android:textColor="@color/colorPrimary"
+        tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+    <Button
+        android:id="@+id/sendNotice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/send_notice"
+        android:textAlignment="textStart"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:drawableStart="@drawable/ic_send_white_24dp"
+        android:gravity="center"
+        android:paddingLeft="50dp"
+        android:drawablePadding="50dp"
+        android:textColor="@color/colorPrimary"/>
+
+    <Button
+        android:id="@+id/newsFeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/news_feed"
+        android:textAlignment="textStart"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:drawableStart="@drawable/ic_speaker_notes_white_24dp"
+        android:gravity="center"
+        android:paddingLeft="50dp"
+        android:drawablePadding="50dp"
+        android:textColor="@color/colorPrimary"/>
+
+</LinearLayout>

@@ -3,6 +3,8 @@ package com.dbatu.dbatu_tnpc;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.view.View;
@@ -24,9 +26,6 @@ import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * Created by Keyur on 20-10-2016.
  */
@@ -35,99 +34,20 @@ public class RegistrationActivity extends Activity {
 
     //various fields in registration form
 
-    @BindView(R.id.studentFirstName)
-    EditText studentFirstName;
-    @BindView(R.id.studentMiddleName)
-    EditText studentMiddleName;
-    @BindView(R.id.studentLastName)
-    EditText studentLastName;
-    @BindView(R.id.studentContactNumber)
-    EditText studentContactNumber;
-    @BindView(R.id.studentEmail)
-    EditText studentEmail;
-    @BindView(R.id.studentAddress)
-    EditText studentAddress;
-    @BindView(R.id.studentRollno)
-    EditText studentRollno;
-    @BindView(R.id.studentSSCPercentage)
-    EditText studentSSCPercentage;
-    @BindView(R.id.studentHSCPercentage)
-    EditText studentHSCPercentage;
-    @BindView(R.id.studentDiplomaPercentage)
-    EditText studentDiplomaPercentage;
-    @BindView(R.id.studentSGPA1)
-    EditText students_sgpa1;
-    @BindView(R.id.studentSGPA2)
-    EditText students_sgpa2;
-    @BindView(R.id.studentSGPA3)
-    EditText students_sgpa3;
-    @BindView(R.id.studentSGPA4)
-    EditText students_sgpa4;
-    @BindView(R.id.studentSGPA5)
-    EditText students_sgpa5;
-    @BindView(R.id.studentSGPA6)
-    EditText students_sgpa6;
-    @BindView(R.id.specifyOtherExamDetails)
-    EditText specifyOtherExam;
-
-    @BindView(R.id.studentMale)
-    RadioButton studentMale;
-    @BindView(R.id.studentFemale)
-    RadioButton studentFemale;
-    @BindView(R.id.radioButtonfy)
-    RadioButton firstYearAdmission;
-    @BindView(R.id.radioButtonda)
-    RadioButton dplomaAdmission;
-    @BindView(R.id.optionYes)
-    RadioButton exam_yes;
-    @BindView(R.id.optionNo)
-    RadioButton exam_no;
-
-    @BindView(R.id.academicDetails)
-    LinearLayout academicDetails;
-    @BindView(R.id.examDetails)
-    LinearLayout examDetails;
-
-    @BindView(R.id.typeOfAdmission)
-    TextView admissionDetails;
-
-    @BindView(R.id.studentSGPA1TextInputLayout)
-    TextInputLayout sgpaFirstSem;
-    @BindView(R.id.studentSGPA2TextInputLayout)
-    TextInputLayout sgpaSecondSem;
-    @BindView(R.id.studentHSCTextInputLayout)
-    TextInputLayout hscPercentage;
-    @BindView(R.id.studentiDplomaTextInputLayout)
-    TextInputLayout diplomaPercentage;
-    @BindView(R.id.specifyOtherExamDetailsTextInputLayout)
-    TextInputLayout specifyOtherExamDetails;
-
-    @BindView(R.id.registerStudent)
-    Button registerStudent;
-
-    @BindView(R.id.exam_otherExams)
-    CheckBox exam_other;
-    @BindView(R.id.exam_gate)
-    CheckBox exam_gate;
-    @BindView(R.id.exam_gre_toefl)
-    CheckBox exam_gre;
-    @BindView(R.id.exam_mba_mbacet)
-    CheckBox exam_cat;
-    @BindView(R.id.exam_gmat)
-    CheckBox exam_gmat;
-    @BindView(R.id.exam_cmat)
-    CheckBox exam_cmat;
-    @BindView(R.id.exam_mpsc_upsc)
-    CheckBox exam_mpsc_upsc;
-
-    @BindView(R.id.studentDepartment)
-    Spinner departmentDropdownList;
-    @BindView(R.id.studentBacklogDropdownList)
-    Spinner backlogDropdownList;
+    private EditText studentFullName, studentContactNumber, studentEmail, studentAddress, studentRollno,
+    studentSSCPercentage, studentHSCPercentage, studentDiplomaPercentage, students_sgpa1, students_sgpa2, students_sgpa3, students_sgpa4, students_sgpa5,
+    students_sgpa6, specifyOtherExam;
+    private RadioButton studentMale, studentFemale, firstYearAdmission, dplomaAdmission, exam_yes, exam_no;
+    private LinearLayout academicDetails, examDetails;
+    private TextView admissionDetails, clickToLogin;
+    private TextInputLayout sgpaFirstSem, sgpaSecondSem, hscPercentage, diplomaPercentage, specifyOtherExamDetails;
+    private Button registerStudent;
+    private CheckBox exam_other, exam_gate, exam_gre, exam_cat, exam_gmat, exam_cmat, exam_mpsc_upsc;
+    private Spinner departmentDropdownList, backlogDropdownList;
+    private ProgressDialog progressDialog;
 
     //for date of birth
-    @BindView(R.id.dateofbirth)
-    TextView dateOfBirthView;
+    private TextView dateOfBirthView;
     private int year, month, day;
 
     //Firebase
@@ -148,7 +68,16 @@ public class RegistrationActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        instantiation();
+        progressDialog = new ProgressDialog(this);
+        initialize();
+        clickToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         getDateOfBirth();
         openAcademicDetailsLayout();
         getDepartment();
@@ -156,9 +85,68 @@ public class RegistrationActivity extends Activity {
         openOrCloseExamDetailsLayout();
         doStudentRegistration();
     }
+    public void onBackPressed(){
+        RegistrationActivity.this.finish();
+    }
 
-    private void instantiation() {
-        ButterKnife.bind(this);
+    private void initialize() {
+
+        //EditText Fields
+        studentFullName = (EditText)findViewById(R.id.studentFullName);
+        studentContactNumber = (EditText)findViewById(R.id.studentContactNumber);
+        studentEmail = (EditText)findViewById(R.id.studentEmail);
+        studentAddress = (EditText)findViewById(R.id.studentAddress);
+        studentRollno = (EditText)findViewById(R.id.studentRollno);
+        studentSSCPercentage = (EditText)findViewById(R.id.studentSSCPercentage);
+        studentHSCPercentage = (EditText)findViewById(R.id.studentHSCPercentage);
+        studentDiplomaPercentage = (EditText)findViewById(R.id.studentDiplomaPercentage);
+        students_sgpa1 = (EditText)findViewById(R.id.studentSGPA1);
+        students_sgpa2 = (EditText)findViewById(R.id.studentSGPA2);
+        students_sgpa3 = (EditText)findViewById(R.id.studentSGPA3);
+        students_sgpa4 = (EditText)findViewById(R.id.studentSGPA4);
+        students_sgpa5 = (EditText)findViewById(R.id.studentSGPA5);
+        students_sgpa6 = (EditText)findViewById(R.id.studentSGPA6);
+        specifyOtherExam = (EditText)findViewById(R.id.specifyOtherExamDetails);
+
+        //TextInputLayout Fields
+        hscPercentage = (TextInputLayout)findViewById(R.id.studentHSCTextInputLayout);
+        diplomaPercentage = (TextInputLayout)findViewById(R.id.studentiDplomaTextInputLayout);
+        sgpaFirstSem = (TextInputLayout)findViewById(R.id.studentSGPA1TextInputLayout);
+        sgpaSecondSem = (TextInputLayout)findViewById(R.id.studentSGPA2TextInputLayout);
+        specifyOtherExamDetails = (TextInputLayout)findViewById(R.id.specifyOtherExamDetailsTextInputLayout);
+
+        //TextView Fields
+        dateOfBirthView = (TextView) findViewById(R.id.dateofbirth);
+        admissionDetails = (TextView)findViewById(R.id.typeOfAdmission);
+        clickToLogin = (TextView)findViewById(R.id.clicktologin);
+
+        //Buttons
+        registerStudent = (Button)findViewById(R.id.registerStudent);
+
+        //Spinners
+        departmentDropdownList = (Spinner)findViewById(R.id.studentDepartment);
+        backlogDropdownList = (Spinner)findViewById(R.id.studentBacklogDropdownList);
+
+        //RadioButtons
+        studentMale = (RadioButton)findViewById(R.id.studentMale);
+        studentFemale = (RadioButton)findViewById(R.id.studentFemale);
+        firstYearAdmission = (RadioButton)findViewById(R.id.radioButtonfy);
+        dplomaAdmission = (RadioButton)findViewById(R.id.radioButtonda);
+        exam_yes = (RadioButton)findViewById(R.id.optionYes);
+        exam_no = (RadioButton)findViewById(R.id.optionNo);
+
+        //Checkbox
+        exam_gate = (CheckBox)findViewById(R.id.exam_gate);
+        exam_gre = (CheckBox)findViewById(R.id.exam_gre_toefl);
+        exam_cat = (CheckBox)findViewById(R.id.exam_mba_mbacet);
+        exam_gmat = (CheckBox)findViewById(R.id.exam_gmat);
+        exam_cmat = (CheckBox)findViewById(R.id.exam_cmat);
+        exam_mpsc_upsc = (CheckBox)findViewById(R.id.exam_mpsc_upsc);
+        exam_other = (CheckBox)findViewById(R.id.exam_otherExams);
+
+        //LinearLayout
+        academicDetails = (LinearLayout)findViewById(R.id.academicDetails);
+        examDetails = (LinearLayout)findViewById(R.id.examDetails);
 
         //Visibility of various fields
         registerStudent.setVisibility(View.GONE);
@@ -182,7 +170,9 @@ public class RegistrationActivity extends Activity {
     @Override
     protected Dialog onCreateDialog(int id) {
         if (id == 999) {
-            return new DatePickerDialog(this, myDateListener, year, month, day);
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this, myDateListener, year, month, day);
+            datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+            return datePickerDialog;
         }
         return null;
     }
@@ -308,9 +298,11 @@ public class RegistrationActivity extends Activity {
         registerStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String firstName = studentFirstName.getText().toString().trim();
-                String middleName = studentMiddleName.getText().toString().trim();
-                String lastName = studentLastName.getText().toString().trim();
+
+                progressDialog.setMessage("Please wait.....\n Registering");
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.show();
+                String fullName = studentFullName.getText().toString().trim();
                 String male = studentMale.getText().toString().trim();
                 String female = studentFemale.getText().toString().trim();
                 String DOB = dateOfBirthView.getText().toString().trim();
@@ -369,27 +361,20 @@ public class RegistrationActivity extends Activity {
 
                 //Adding data to firebase
                 float sscf = Float.parseFloat(SSC);
-                float hscf = Float.parseFloat(HSC);
-                float sgpa1f = Float.parseFloat(sgpa1);
-                float sgpa2f = Float.parseFloat(sgpa2);
                 float sgpa3f = Float.parseFloat(sgpa3);
                 float sgpa4f = Float.parseFloat(sgpa4);
                 float sgpa5f = Float.parseFloat(sgpa5);
                 float sgpa6f = Float.parseFloat(sgpa6);
-                if (firstName.equals(null)||lastName.equals(null)||DOB.equals(null)||contactNumber.equals(null)||email.equals(null)||
+                if (fullName.equals(null)||DOB.equals(null)||contactNumber.equals(null)||email.equals(null)||
                         address.equals(null)||rollno.equals(null)||SSC.equals(null)||HSC.equals(null)||sgpa1.equals(null)||sgpa2.equals(null)
                         ||sgpa3.equals(null) ||sgpa4.equals(null)||sgpa5.equals(null)|| sgpa6.equals(null)){
                     Toast.makeText(RegistrationActivity.this, "All * Fields are Compulsory", Toast.LENGTH_SHORT).show();
-                }if (sscf<0||sscf>100||hscf<0||hscf>100||sgpa1f<0||sgpa1f>10||sgpa2f<0||sgpa2f>10||sgpa3f<0||sgpa3f>10||sgpa4f<0||sgpa4f>10||sgpa5f<0||sgpa5f>10
+                }if (sscf<0||sscf>100||sgpa3f<0||sgpa3f>10||sgpa4f<0||sgpa4f>10||sgpa5f<0||sgpa5f>10
                         ||sgpa6f<0||sgpa6f>10) {
                     Toast.makeText(getApplicationContext(), "Invalid Percentage or SGPA", Toast.LENGTH_SHORT).show();
                 }else{
-                    Firebase firstNameChildRef = dbatu_tnpc_firebase_reference.child("First Name");
-                    firstNameChildRef.setValue(firstName);
-                    Firebase middleNameChildRef = dbatu_tnpc_firebase_reference.child("Middle Name");
-                    middleNameChildRef.setValue(middleName);
-                    Firebase studentChildRef = dbatu_tnpc_firebase_reference.child("Last Name");
-                    studentChildRef.setValue(lastName);
+                    Firebase fullNameChildRef = dbatu_tnpc_firebase_reference.child("Full_Name");
+                    fullNameChildRef.setValue(fullName);
                     if (studentMale.isChecked()) {
                         Firebase maleChildRef = dbatu_tnpc_firebase_reference.child("Gender");
                         maleChildRef.setValue(male);
@@ -397,55 +382,59 @@ public class RegistrationActivity extends Activity {
                         Firebase femaleChildRef = dbatu_tnpc_firebase_reference.child("Gender");
                         femaleChildRef.setValue(female);
                     }
-                    Firebase dobChildRef = dbatu_tnpc_firebase_reference.child("Date Of Birth");
+                    Firebase dobChildRef = dbatu_tnpc_firebase_reference.child("Date_Of_Birth");
                     dobChildRef.setValue(DOB);
-                    Firebase contactNumberChildRef = dbatu_tnpc_firebase_reference.child("Contact Number");
+                    Firebase contactNumberChildRef = dbatu_tnpc_firebase_reference.child("Contact_Number");
                     contactNumberChildRef.setValue(contactNumber);
                     Firebase emailChildRef = dbatu_tnpc_firebase_reference.child("Email");
                     emailChildRef.setValue(email);
                     Firebase addressChildRef = dbatu_tnpc_firebase_reference.child("Address");
                     addressChildRef.setValue(address);
                     if (firstYearAdmission.isChecked()) {
-                        Firebase fyaChildRef = dbatu_tnpc_firebase_reference.child("Admission Type");
+                        Firebase fyaChildRef = dbatu_tnpc_firebase_reference.child("Admission_Type");
                         fyaChildRef.setValue(sFirstYearAdmission);
-                        Firebase hscChildRef = dbatu_tnpc_firebase_reference.child("HSC Percentage");
+                        Firebase hscChildRef = dbatu_tnpc_firebase_reference.child("HSC_Percentage");
                         hscChildRef.setValue(HSC);
-                        Firebase sgpa1ChildRef = dbatu_tnpc_firebase_reference.child("First Semester");
+                        Firebase sgpa1ChildRef = dbatu_tnpc_firebase_reference.child("First_Semester");
                         sgpa1ChildRef.setValue(sgpa1);
-                        Firebase sgpa2ChildRef = dbatu_tnpc_firebase_reference.child("Second Semester");
+                        Firebase sgpa2ChildRef = dbatu_tnpc_firebase_reference.child("Second_Semester");
                         sgpa2ChildRef.setValue(sgpa2);
                     } else {
-                        Firebase syaChildRef = dbatu_tnpc_firebase_reference.child("Admission Type");
+                        Firebase syaChildRef = dbatu_tnpc_firebase_reference.child("Admission_Type");
                         syaChildRef.setValue(sDiplomaAdmission);
-                        Firebase diplomaChildRef = dbatu_tnpc_firebase_reference.child("Diploma Percentage");
+                        Firebase diplomaChildRef = dbatu_tnpc_firebase_reference.child("Diploma_Percentage");
                         diplomaChildRef.setValue(diplomaPercentage);
                     }
                     Firebase departmentChildRef = dbatu_tnpc_firebase_reference.child("Department");
                     departmentChildRef.setValue(department);
-                    Firebase rollnoChildRef = dbatu_tnpc_firebase_reference.child("Roll Number");
+                    Firebase rollnoChildRef = dbatu_tnpc_firebase_reference.child("Roll_Number");
                     rollnoChildRef.setValue(rollno);
-                    Firebase sscChildRef = dbatu_tnpc_firebase_reference.child("SSC Percentage");
+                    Firebase sscChildRef = dbatu_tnpc_firebase_reference.child("SSC_Percentage");
                     sscChildRef.setValue(SSC);
-                    Firebase sgpa3ChildRef = dbatu_tnpc_firebase_reference.child("Third Semester");
+                    Firebase sgpa3ChildRef = dbatu_tnpc_firebase_reference.child("Third_Semester");
                     sgpa3ChildRef.setValue(sgpa3);
-                    Firebase sgpa4ChildRef = dbatu_tnpc_firebase_reference.child("Forth Semester");
+                    Firebase sgpa4ChildRef = dbatu_tnpc_firebase_reference.child("Forth_Semester");
                     sgpa4ChildRef.setValue(sgpa4);
-                    Firebase sgpa5ChildRef = dbatu_tnpc_firebase_reference.child("Fifth Semester");
+                    Firebase sgpa5ChildRef = dbatu_tnpc_firebase_reference.child("Fifth_Semester");
                     sgpa5ChildRef.setValue(sgpa5);
-                    Firebase sgpa6ChildRef = dbatu_tnpc_firebase_reference.child("Sixth Semester");
+                    Firebase sgpa6ChildRef = dbatu_tnpc_firebase_reference.child("Sixth_Semester");
                     sgpa6ChildRef.setValue(sgpa6);
-                    Firebase backlogChildRef = dbatu_tnpc_firebase_reference.child("Number of Active Backlogs");
+                    Firebase backlogChildRef = dbatu_tnpc_firebase_reference.child("Number_of_Active_Backlogs");
                     backlogChildRef.setValue(backlog);
                     if (exam_yes.isChecked()) {
-                        Firebase yesChildRef = dbatu_tnpc_firebase_reference.child("Interested In Higher Studies");
+                        Firebase yesChildRef = dbatu_tnpc_firebase_reference.child("Interested_In_Higher_Studies");
                         yesChildRef.setValue(yes_exam);
-                        Firebase examChildRef = dbatu_tnpc_firebase_reference.child("Appearing for Exam");
+                        Firebase examChildRef = dbatu_tnpc_firebase_reference.child("Appearing_for_Exam");
                         examChildRef.setValue(exams);
                     } else {
-                        Firebase noChildRef = dbatu_tnpc_firebase_reference.child("Interested In Higher Studies");
+                        Firebase noChildRef = dbatu_tnpc_firebase_reference.child("Interested_In_Higher_Studies");
                         noChildRef.setValue(no_exam);
                     }
+                    progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Successfully Registered", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });
